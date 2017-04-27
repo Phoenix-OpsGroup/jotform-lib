@@ -3,7 +3,7 @@
 
 
 
-### Retrieve Jotform JSON Response from http://jotform.com ###
+### Retrieve Jotform JSON Response from jotform.com ###
 ```
 curl -X GET "https://api.jotform.com/submission/{submissionID}?apiKey={apiKey}"
 ```
