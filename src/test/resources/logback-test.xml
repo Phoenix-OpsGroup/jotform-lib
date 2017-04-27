@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration scan="true">
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator" />
+
+    <root level="ERROR">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5.5level [%thread] %-16.16logger{16}:-4.4L %msg%n</pattern>
+            </encoder>
+        </appender>
+    </root>
+
+</configuration>

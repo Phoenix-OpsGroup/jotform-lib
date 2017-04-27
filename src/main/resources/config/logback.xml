@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration scan="true">
+
+    <property name="PACKAGE_NAME" value="com.phoenixopsgroup" />
+    <property name="APP_NAME" value="jotform-lib" />
+
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator" />
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%green(%d{yyyy-MM-dd HH:mm:ss.SSS}) %highlight(%-5.5level) [%thread] %cyan(%-16.16logger{16}:%-4.4L) %yellow(%msg%n)</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender" >
+        <file>logs/${PACKAGE_NAME}.${APP_NAME}.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5.5level [%thread] %-16.16logger{16}:-4.4L %msg%n</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- Rollover Daily -->
+            <fileNamePattern>logs-archived/${PACKAGE_NAME}.${APP_NAME}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <!-- Maximum of 30 Days -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <logger name="${PACKAGE_NAME}" level="INFO" additivity="false">
+        <appender-ref ref="FILE" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <root level="ERROR">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>
