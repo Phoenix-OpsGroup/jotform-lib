@@ -2,55 +2,24 @@
 ## Getting Started ##
 
 
-### Generate from archetype ###
+### Retrieve Jotform JSON Response from http://jotform.com ###
 ```
-mvn archetype:generate -DarchetypeCatalog=local \
-    -DarchetypeGroupId=us.westly -DarchetypeArtifactId=westly-app -DarchetypeVersion=0.0.1 \
-    -DgroupId=com.phoenixops -DartifactId=demo -Dversion=1.0-SNAPSHOT
+curl...
 ```
 
-### mvn package ###
+### Read the JSON into a JotformResponse ###
 
-Creates:
 ```
-    target/${project.artifactId}-${project.version}.jar
-    target/${project.artifactId}-${project.version}-jar-with-dependencies.jar
-    deploy/bin/${project.artifactId}-${project.version}-bin.tar.gz
-    deploy/project/${project.artifactId}-${project.version}-project.tar.gz
-    deploy/src/${project.artifactId}-${project.version}-src.tar.gz
+final GsonBuilder gsonBuilder = new GsonBuilder();
+gsonBuilder.registerTypeAdapter(Answer.class, new AnswerTypeAdapter());
+final Gson gson = gsonBuilder.create();
+
+JotformSubmission jotformSubmission
+    = gson.fromJson(jsonString, JotformSubmission.class);
+
+JotformUtil jotformUtil = new JotformUtil();
+JotformResponse jotformResponse 
+    = jotformUtil.getResponse(jotformSubmission);
+            
+jotformResponse.dump();
 ```
-### Reads configuration XML file and spews contents ###
-```
-java -jar \
-    target/${project.artifactId}-${project.version}-jar-with-dependencies.jar \
-    --config config/${project.artifactId}-config.xml
-```
-
-
-### Recommended Usage ###
-```java
- App.run()
-
-    // Entry point to begin coding.
-
-  App.validateCommandLineOptions()
-
-    // Add other command line options you require
-```
-
-### SonarQube ###
-* SonarQube Server requires this plugin in the extensions/plugins directory:
-** http://docs.sonarqube.org/display/SONARQUBE45/Cobertura+Plugin
-
-Usage:
-* Compiles, builds Cobertura files, pushes to SonarQube
-```
-mvn site sonar:sonar
-```
-
-### IntelliJ IDEA ###
-* https://plugins.jetbrains.com/search/index?pr=idea&search=SonarQube
-** SonarQube Community Plugin
-*** Connect IntelliJ IDEA to SonarQube Server
-** SonarLint
-*** Code quality feedback
