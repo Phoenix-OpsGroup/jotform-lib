@@ -2,9 +2,10 @@
 ## Getting Started ##
 
 
+
 ### Retrieve Jotform JSON Response from http://jotform.com ###
 ```
-curl...
+curl -X GET "https://api.jotform.com/submission/{submissionID}?apiKey={apiKey}"
 ```
 
 ### Read the JSON into a JotformResponse ###
