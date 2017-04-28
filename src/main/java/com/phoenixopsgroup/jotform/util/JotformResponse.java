@@ -5,6 +5,9 @@
  */
 package com.phoenixopsgroup.jotform.util;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
@@ -28,6 +31,7 @@ public class JotformResponse
     private Date created;
     private String updated;
     private Map<Integer,JotformField> jotformFieldMap = new HashMap<>();
+    
 
     public JotformResponse()
     {
@@ -146,5 +150,31 @@ public class JotformResponse
             }
             System.out.println();
         }
+    }
+
+    public String toJson(boolean lowercaseWithUnderscores)
+    {
+        final GsonBuilder gsonBuilder = new GsonBuilder();
+        
+        Gson gson;
+
+        if (lowercaseWithUnderscores)
+        {
+            gson = gsonBuilder
+                    .registerTypeAdapter(Date.class, new GsonUTCDateAdapter())
+                    .setPrettyPrinting()
+                    .serializeNulls()
+                    .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                    .create();
+
+        } else {
+            gson = gsonBuilder
+                    .registerTypeAdapter(Date.class, new GsonUTCDateAdapter())
+                    .setPrettyPrinting()
+                    .serializeNulls()
+                    .create();
+
+        }
+        return gson.toJson(this);
     }
 }

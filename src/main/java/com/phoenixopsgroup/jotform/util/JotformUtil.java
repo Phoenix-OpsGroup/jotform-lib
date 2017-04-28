@@ -23,7 +23,8 @@ public class JotformUtil
 
     private static final Logger logger = LoggerFactory.getLogger(JotformUtil.class);
 
-    DateFormat createdDateFormat = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
+    DateFormat createdDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 
     public JotformUtil()
     {
@@ -67,6 +68,7 @@ public class JotformUtil
 
         try
         {
+
             jotformResponse.setCreated(createdDateFormat.parse(jotformSubmission.getContent().getCreatedAt()));
             jotformResponse.setFormId(Long.parseLong(jotformSubmission.getContent().getFormId()));
             jotformResponse.setIpAddress(jotformSubmission.getContent().getIp());

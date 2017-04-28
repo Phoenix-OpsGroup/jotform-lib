@@ -62,7 +62,8 @@ public class AppTest
             JotformUtil jotformUtil = new JotformUtil();
             JotformResponse jotformResponse = jotformUtil.getResponse(jotformSubmission);
             
-            jotformResponse.dump();
+//            jotformResponse.dump();
+            System.out.println(jotformResponse.toJson(false));
 
         } catch (FileNotFoundException e)
         {
