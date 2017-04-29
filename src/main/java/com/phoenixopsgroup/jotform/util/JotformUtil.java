@@ -83,13 +83,16 @@ public class JotformUtil
                 jotformField.setFieldName(answerEnvelope.getText());
                 jotformField.setFieldType(answerEnvelope.getType());
 
-                for (String key2 : answerEnvelope.getAnswer().getKeyValuePairs().keySet())
+                if (null != answerEnvelope.getAnswer())
                 {
+                    for (String key2 : answerEnvelope.getAnswer().getKeyValuePairs().keySet())
+                    {
 
-                    String value2 = answerEnvelope.getAnswer().getKeyValuePairs().get(key2);
-                    jotformField.getKvPairs().put(key2, value2);
+                        String value2 = answerEnvelope.getAnswer().getKeyValuePairs().get(key2);
+                        jotformField.getKvPairs().put(key2, value2);
+                    }
+                    jotformResponse.getJotformFieldMap().put(Integer.parseInt(key), jotformField);
                 }
-                jotformResponse.getJotformFieldMap().put(Integer.parseInt(key),jotformField);
             }
             
             

@@ -46,7 +46,7 @@ public class AppTest
     public void JotformSubmissionTest()
     {
 
-        URL url = this.getClass().getResource("/data/jotform.spi.submission.result.json");
+        URL url = this.getClass().getResource("/data/jotform.complete.json");
         File file = new File(url.getFile());
 
         try
