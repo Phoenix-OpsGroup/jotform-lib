@@ -21,9 +21,10 @@ public class JotformField
     private static final Logger logger = LoggerFactory.getLogger(JotformField.class);
 
     private String fieldName;
+    private String fieldNamePrintFriendly;
     private String fieldType;
 
-    private Map<String,String> kvPairs = new HashMap<>();
+    private Map<String,String> values = new HashMap<>();
 
 
     public JotformField()
@@ -81,14 +82,23 @@ public class JotformField
         this.fieldType = fieldType;
     }
 
-    public Map<String, String> getKvPairs()
+    public Map<String, String> getValues()
     {
-        return kvPairs;
+        return values;
     }
 
-    public void setKvPairs(Map<String, String> kvPairs)
+    public void setValues(Map<String, String> values)
     {
-        this.kvPairs = kvPairs;
+        this.values = values;
     }
 
+    public String getFieldNamePrintFriendly()
+    {
+        return fieldNamePrintFriendly;
+    }
+
+    public void setFieldNamePrintFriendly(String fieldNamePrintFriendly)
+    {
+        this.fieldNamePrintFriendly = fieldNamePrintFriendly;
+    }
 }

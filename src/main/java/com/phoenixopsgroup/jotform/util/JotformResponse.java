@@ -30,9 +30,8 @@ public class JotformResponse
     private String ipAddress;
     private Date created;
     private String updated;
-    private Map<Integer,JotformField> jotformFieldMap = new HashMap<>();
+    private Map<Integer,JotformField> fields = new HashMap<>();
     
-
     public JotformResponse()
     {
 
@@ -129,24 +128,24 @@ public class JotformResponse
         this.updated = updated;
     }
 
-    public Map<Integer, JotformField> getJotformFieldMap()
+    public Map<Integer, JotformField> getFields()
     {
-        return jotformFieldMap;
+        return fields;
     }
 
-    public void setJotformFieldMap(Map<Integer, JotformField> jotformFieldMap)
+    public void setFields(Map<Integer, JotformField> fields)
     {
-        this.jotformFieldMap = jotformFieldMap;
+        this.fields = fields;
     }
 
     public void dump()
     {
-        for (int key : this.getJotformFieldMap().keySet())
+        for (int key : this.getFields().keySet())
         {
-            System.out.println(this.getJotformFieldMap().get(key).getFieldName() + " [" + this.getJotformFieldMap().get(key).getFieldType() + "] " + ":");
-            for (String k : this.getJotformFieldMap().get(key).getKvPairs().keySet())
+            System.out.println(this.getFields().get(key).getFieldName() + " [" + this.getFields().get(key).getFieldType() + "] " + ":");
+            for (String k : this.getFields().get(key).getValues().keySet())
             {
-                System.out.println("  " + k + ": " + this.getJotformFieldMap().get(key).getKvPairs().get(k));
+                System.out.println("  " + k + ": " + this.getFields().get(key).getValues().get(k));
             }
             System.out.println();
         }
@@ -177,4 +176,5 @@ public class JotformResponse
         }
         return gson.toJson(this);
     }
+
 }

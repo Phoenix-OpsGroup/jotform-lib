@@ -6,6 +6,7 @@
 package com.phoenixopsgroup.jotform.util;
 
 import com.phoenixopsgroup.jotform.gson.AnswerEnvelope;
+import com.phoenixopsgroup.jotform.gson.FormQuestionResponse;
 import com.phoenixopsgroup.jotform.gson.JotformSubmission;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -24,8 +25,7 @@ public class JotformUtil
     private static final Logger logger = LoggerFactory.getLogger(JotformUtil.class);
 
     DateFormat createdDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-
+    
     public JotformUtil()
     {
 
@@ -61,11 +61,10 @@ public class JotformUtil
                 .toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
-
-    public JotformResponse getResponse(JotformSubmission jotformSubmission)
+    public JotformResponse getResponse(JotformSubmission jotformSubmission, FormQuestionResponse formSchema)
     {
         JotformResponse jotformResponse = new JotformResponse();
-
+        
         try
         {
 
@@ -80,18 +79,33 @@ public class JotformUtil
             {
                 AnswerEnvelope answerEnvelope =  jotformSubmission.getContent().getAnswerEnvelopes().get(key);
                 JotformField jotformField = new JotformField();
-                jotformField.setFieldName(answerEnvelope.getText());
+                jotformField.setFieldName(formSchema.getFormQuestionEnvelopes().get(key).getKeyValuePairs().get("name"));
+                jotformField.setFieldNamePrintFriendly(answerEnvelope.getText());
                 jotformField.setFieldType(answerEnvelope.getType());
 
                 if (null != answerEnvelope.getAnswer())
                 {
+                    String fieldName =formSchema.getFormQuestionEnvelopes()
+                            .get(key).getKeyValuePairs().get("name")
+                            .replaceAll("\\s+","_");
+
                     for (String key2 : answerEnvelope.getAnswer().getKeyValuePairs().keySet())
                     {
 
                         String value2 = answerEnvelope.getAnswer().getKeyValuePairs().get(key2);
-                        jotformField.getKvPairs().put(key2, value2);
+                        if (key2.equals("key"))
+                        {
+                            jotformField.getValues().put(fieldName, value2);
+                        }
+                        else
+                        {
+                            jotformField.getValues().put(fieldName + "." + key2.replaceAll("\\s+","_"), value2);
+                        }
+
                     }
-                    jotformResponse.getJotformFieldMap().put(Integer.parseInt(key), jotformField);
+                    jotformResponse.getFields().put(Integer.parseInt(key), jotformField);
+
+
                 }
             }
             
