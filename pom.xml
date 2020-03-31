@@ -197,6 +197,17 @@
              </plugins>
     </reporting>
     
+    <distributionManagement>
+        <snapshotRepository>
+            <id>local-nexus-snapshots</id>
+            <url>http://localhost:50080/repository/maven-snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>local-nexus-releases</id>
+            <url>http://localhost:50080/repository/maven-releases/</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
 
         <dependency>
